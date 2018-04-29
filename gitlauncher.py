@@ -15,6 +15,7 @@ Project_Name = ''
 Project_Url = ''
 Git_Url = ''
 Release_Author = ''
+Git_LogCommand = ''
 
 # From Arguments parser
 bCreateTxtFile = False
@@ -28,6 +29,7 @@ def getArgument():
 	global Project_Url
 	global Git_Url
 	global Release_Author
+	global Git_LogCommand
 	global bCreateTxtFile
 	global bCreateHtmlFile
 
@@ -37,8 +39,6 @@ def getArgument():
 	parser.add_argument('-config', action='store', required=True, help='Config file')
 	parser.add_argument('--createTxt', action='store_true', help='This option will create a txt file report')
 	parser.add_argument('--createHtml', action='store_true', help='This option will create a html file report')
-	parser.add_argument('--tag0', action='store', help='If doing a difference between two tags, this is the OLDEST tag')
-	parser.add_argument('--tag1', action='store', help='If doing a difference between two tags, this is the LATEST tag')
 
 	# Parsed arguments
 	parsed = parser.parse_args()
@@ -53,6 +53,7 @@ def getArgument():
 	Project_Url 	= config.get('Project','Project_Url')
 	Git_Url 		= config.get('Project','Git_Url')
 	Release_Author	= config.get('Project','Release_Author')
+	Git_LogCommand	= config.get('Project','Git_LogCommand')
 
 
 if __name__ == '__main__':
@@ -60,7 +61,7 @@ if __name__ == '__main__':
 	getArgument()
 	# Open a temporary files to retrieve the output of the git log commands
 	with open('tmp.txt', 'w') as outputFile:
-		with Popen('git log --date=short',stdout=PIPE) as p:
+		with Popen(Git_LogCommand,stdout=PIPE) as p:
 			output, errors = p.communicate()
 			line = output.decode('utf-8')
 			outputFile.write(line)
