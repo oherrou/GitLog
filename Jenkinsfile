@@ -14,6 +14,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building'
+        bat 'C:\\Users\\oherrou.ext\\Projet\\Jenkins\\Jenkins_IAR_Build.bat'
       }
     }
     stage('Reporting') {
