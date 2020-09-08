@@ -7,7 +7,7 @@ import argparse
 import configparser
 from gitlogparser import parseCommit, WriteCommitToTxt, WriteCommitToHtml
 from subprocess import Popen, PIPE
-import datetime
+import datetime  
 
 # From ini files
 Project_Number = ''
